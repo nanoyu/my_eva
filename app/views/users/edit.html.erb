@@ -1,0 +1,25 @@
+
+			<h1>ユーザー設定</h1>
+			<%= form_for(current_user) do |f| %>
+
+			<%= f.attachment_field :profile_image, class: "user_image" %>
+			<%= f.attachment_field :home_image, class: "home_image" %>
+
+
+			<p>名前</p>
+			<%= f.text_field :name, class: "name" %>
+
+			<p>メールアドレス</p>
+			<%= f.text_field :email, class: "email" %>
+
+			<p>電話番号</p>
+			<%= f.text_field :phone_number, class: "phone_number" %>
+
+
+
+			<p><%= f.submit '保存' %></p>
+
+			<p><%= link_to "戻る", user_path(current_user) %></p>
+
+			<% end %>
+

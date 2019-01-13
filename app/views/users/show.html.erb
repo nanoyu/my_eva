@@ -1,0 +1,12 @@
+<h1>Myページ</h1>
+
+<p><%= attachment_image_tag @user, :profile_image, :fill, 200, 200, fallback: "no_image.jpg", :size => '200' %></p>
+
+	<ul>
+		<li><%= @user.name %></li>
+		<li><%= @user.email %></li>
+		<li><%= @user.phone_number %></li>
+	</ul>
+
+	<p><%= link_to "ユーザー設定", edit_user_path(current_user) %></p>
+
