@@ -2,8 +2,8 @@
 
 <%= form_for(@post) do |f| %>
 
-<!--<h4>カテゴリー</h4>
-<%= f.collection_select :category_id, Category.all, :id, :category_name %>-->
+<h4>カテゴリー</h4>
+<%= f.collection_select :category_id, Category.all, :id, :category_name %>
 
 <h4>画像</h4>
 <%= f.attachment_field :product_image %>
