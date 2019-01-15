@@ -10,3 +10,17 @@
 
 	<p><%= link_to "ユーザー設定", edit_user_path(current_user) %></p>
 
+
+	<h2>My投稿</h2>
+<% @user.posts.each do |post| %>
+  <a href="/posts/<%= post.id %>"><%= post.title %></a>
+  <hr>
+<% end %>
+
+
+<h3>いいねしている投稿</h3>
+<% @user.liked_posts.each do |post| %>
+  <%= post.user.name %>
+  <%= link_to post.title, post_path(post.id) %>
+<% end %>
+
