@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2.2.rc1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -68,3 +68,10 @@ gem 'ransack'
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'pry-rails'
+
+#textarea
+gem 'jquery-rails', '~> 4.3.1'
+gem 'bootstrap', '~> 4.0.0'
+gem 'simple_form'
+gem 'summernote-rails', '~> 0.8.10.0'
+
