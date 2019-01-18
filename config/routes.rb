@@ -10,7 +10,9 @@ Rails.application.routes.draw do
         registrations: "users/registrations"
     }
      resources :users, only: [:show, :edit, :update, :destroy]
-     resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy]
+     resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
+     resources :likes, only: [:create, :destroy]
+  end
 
      get 'root/top'
      get 'root/about'
