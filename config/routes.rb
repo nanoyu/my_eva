@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'uploads/create'
+  get 'uploads/destroy'
   devise_for :admins, controllers: {
         sessions: "admins/sessions",
         passwords: "admins/paswwords",
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
      resources :users, only: [:show, :edit, :update, :destroy]
      resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
      resources :likes, only: [:create, :destroy]
+     resources :uploads, only: [:create, :destroy]
   end
 
      get 'root/top'

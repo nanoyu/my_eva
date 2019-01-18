@@ -3,12 +3,13 @@
 <p id="notice"><%= notice %></p>
 
 <h2><%= @post.title %></h2>
+<td><%= link_to "編集", edit_post_path(@post.id) %></td>
+<td><%= link_to "削除", post_path(@post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
 
 <p><%=raw @post.body %></p>
 
 <ul class='pl-4'>
   <% @post.body.scan(/(<img(?:.+?)>)/).flatten.each do | image | %>
-    <li><%= image %></li>
   <% end %>
 </ul>
 

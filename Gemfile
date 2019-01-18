@@ -75,3 +75,5 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'simple_form'
 gem 'summernote-rails', '~> 0.8.10.0'
 
+gem 'carrierwave'
+
