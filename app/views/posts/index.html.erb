@@ -1,3 +1,10 @@
+
+
+<h2>カテゴリ</h2>
+	   <% @categories.each do |category| %>
+		<p><%= link_to category.category_name, category_path(category.id) %></p>
+	   <% end %>
+
 <h1>投稿一覧</h1>
 
  <% @posts.each do |post| %>

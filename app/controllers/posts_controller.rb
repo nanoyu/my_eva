@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   def index
   	#ViewのFormで取得したパラメータをモデルに渡す
     @posts = Post.search(params[:search])
+    @categories = Category.all
   end
 
   def show

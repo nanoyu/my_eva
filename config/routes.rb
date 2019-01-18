@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'categories/show'
   get 'uploads/create'
   get 'uploads/destroy'
   devise_for :admins, controllers: {
@@ -14,8 +15,9 @@ Rails.application.routes.draw do
      resources :users, only: [:show, :edit, :update, :destroy]
      resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
      resources :likes, only: [:create, :destroy]
-     resources :uploads, only: [:create, :destroy]
   end
+     resources :uploads, only: [:create, :destroy]
+     resources :categories, only: [:show]
 
      get 'root/top'
      get 'root/about'
