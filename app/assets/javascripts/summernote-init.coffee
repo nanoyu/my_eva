@@ -42,3 +42,4 @@ $(document).on 'turbolinks:load', ->
           if !!upload_id
             deleteFile upload_id
           target.remove()
+

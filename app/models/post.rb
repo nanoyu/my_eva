@@ -1,7 +1,8 @@
 class Post < ApplicationRecord
 
 	belongs_to :user, optional: true
-	belongs_to :category, optional: true
+	belongs_to :category, optional: true, inverse_of: :posts
+  has_many :comments, dependent: :destroy
 	has_many :likes
  	has_many :liked_users, through: :likes, source: :user
 
@@ -14,4 +15,5 @@ class Post < ApplicationRecord
       Post.all #全て表示。
     end
     end
+
 end
