@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 
+before_action :authenticate_user!
 
   def new
   	@post = Post.new
@@ -13,7 +14,10 @@ class PostsController < ApplicationController
 
   def show
   	@post = Post.find(params[:id])
-  	@like = Like.new
+    @comments = @post.comments
+    @comment = Comment.new
+    @like = Like.new
+    @user = @comment.user
   end
 
   def edit
