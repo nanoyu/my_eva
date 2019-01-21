@@ -18,6 +18,10 @@ class Admins::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  def after_sign_in_path_for(resource)
+    admins_users_path # ログイン後に遷移するpathを設定
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
