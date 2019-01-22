@@ -1,0 +1,22 @@
+<div class='col-xs-9'>
+	<h1>投稿</h1>
+
+	<table class='table table-hover table-inverse'>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Opinion</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @posts.each do |post| %>
+			<tr>
+				<td><%= attachment_image_tag post.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", :size => '40'  %></td>
+				<td><%= link_to post.title, admins_post_path(post.id) %></td>
+				<td><% strip_tags(post.body).truncate(20) %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>

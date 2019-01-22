@@ -13,59 +13,57 @@
   <nav>
    <h2>MyEva</h2>
  </nav>
-
  <nav>
    <ul>
 
-    <% if user_signed_in? %>
-    <li>
-     <%= link_to "My Page", user_path(current_user)  %>
-   </li>
-   <li>
-     <%= link_to "投稿一覧", posts_path %>
-   </li>
-   <li>
-     <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-   </li>
-   <p><%= link_to "投稿する", new_post_path %></p>
+     <% if user_signed_in? %>
+     <li><%= link_to "My Page", user_path(current_user)  %></li>
+     <li><%= link_to "投稿一覧", posts_path %></li>
+     <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+     <p><%= link_to "投稿する", new_post_path %></p>
+     <p><%= current_user.name %></p>
 
-   <p><%= current_user.name %></p>
+     <% elsif admin_signed_in?  %>
+     <p>管理者</p>
+     <li><%= link_to "ユーザー", admins_users_path %></li>
+     <li><%= link_to "投稿", admins_posts_path %></li>
 
-   <% else %>
-   <li>
-    <%= link_to " about", root_about_path %>
-  </li>
-   <li>
-    <%= link_to " sign up", new_user_registration_path %>
-  </li>
-  <li>
-    <%= link_to " login", new_user_session_path %>
-  </li>
-  <% end %>
+     <% else %>
+     <li><%= link_to " about", root_about_path %></li>
+    <li><%= link_to " sign up", new_user_registration_path %></li>
+    <li><%= link_to " login", new_user_session_path %></li>
 
-</ul>
+    <% end %>
+
+  </ul>
 </nav>
 </header>
 
-<body>
 
+<body>
   <%= form_tag posts_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :title => nil %>
   </p>
-<% end %>
-
+  <% end %>
   <%= yield %>
 </body>
 
+
 <footer>
-    <p class="text-muted"><% if user_signed_in? %>
-     <h5><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></h5>
-     <% else %>
-     <% end %>
-   </p>
- </div>
+  <p class="text-muted">
+    <ul>
+      <% if user_signed_in? %>
+      <li><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></li>
+      <% else %>
+      <li>
+        <%= link_to " 管理者はこちら", new_admin_session_path %>
+      </li>
+      <% end %>
+    </ul>
+  </p>
+</div>
 </footer>
 
 </html>
