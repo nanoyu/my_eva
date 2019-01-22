@@ -8,7 +8,7 @@ before_action :authenticate_user!
 
   def index
   	#ViewのFormで取得したパラメータをモデルに渡す
-    @posts = Post.search(params[:search])
+    @posts = Post.paginate(page: params[:page], per_page: 16).search(params[:search])
     @categories = Category.all
   end
 
@@ -17,6 +17,13 @@ before_action :authenticate_user!
     @comments = @post.comments
     @comment = Comment.new
     @like = Like.new
+    @user = @comment.user
+  end
+
+  def post_comments
+    @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comment = Comment.new
     @user = @comment.user
   end
 

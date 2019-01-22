@@ -77,3 +77,6 @@ gem 'summernote-rails', '~> 0.8.10.0'
 
 gem 'carrierwave'
 
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+

@@ -8,13 +8,18 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def updaate
+  def update
   	user = User.find(params[:id])
     user.update(user_params)
     redirect_to user_path(current_user.id)
   end
 
   def destroy
+  end
+
+  def user_posts
+    @user = User.find(params[:id])
+    @posts = @user.posts.all
   end
 
 

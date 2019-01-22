@@ -1,31 +1,45 @@
 
 
+<%= form_tag posts_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :title => nil %>
+  </p>
+  <% end %>
+
+
 <p id="notice"><%= notice %></p>
 
 <h2><%= @post.title %></h2>
 <td><%= link_to "編集", edit_post_path(@post.id) %></td>
 <td><%= link_to "削除", post_path(@post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
+<hr>
+<td><%= @post.likes.count %> 件のいいね</td>
+<td><%= @post.comments.count %> 件のコメント</td>
+<hr>
 
 <p><%=raw @post.body %></p>
-
 <ul class='pl-4'>
   <% @post.body.scan(/(<img(?:.+?)>)/).flatten.each do | image | %>
   <% end %>
 </ul>
+<hr>
 
-<p>価格</p>
-<p><%= @post.price %>円</p>
 
+<td>価格</td>
+<td><%= @post.price %>円</td>
 <hr>
 
 <h2>コメント一覧</h2>
-<% @comments.each do |c| %>
+<% @comments.first(8).each do |c| %>
   <div>
   	<%= c.user.name %>
     <%= c.content %>
     <hr>
   </div>
 <% end %>
+
+<p><%= link_to "すべてのコメントを表示", all_comment_path(@post.id) %></p>
 
 <%= form_for [@post, @comment] do |f| %>
   <%= f.text_field :content %>
@@ -34,9 +48,6 @@
   <br>
   <%= f.submit 'コメントする' %>
 <% end %>
-
-
-<p>いいね件数: <%= @post.likes.count %></p>
 
 <% if current_user.already_liked?(@post) %>
   <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>

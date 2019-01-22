@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   def show
   	@category = Category.find(params[:id])
-  	@posts = @category.posts.page(params[:page]).per(9).reverse_order
+  	@posts = @category.posts.paginate(page: params[:page], per_page: 8).search(params[:search])
   	@categories = Category.all
   end
 
