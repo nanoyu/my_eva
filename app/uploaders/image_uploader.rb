@@ -20,7 +20,7 @@ version :thumb do
 
   version :small_thumb, from_version: :thumb do
     process resize_to_fill: [20, 20]
-
+end
   # 保存形式をJPGにする
   process :convert => 'jpg'
 

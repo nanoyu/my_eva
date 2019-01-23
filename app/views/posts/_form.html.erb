@@ -1,6 +1,11 @@
 <%= simple_form_for(@post) do |f| %>
 <%= f.error_notification %>
 
+<%= f.hidden_field :rating, id: :post_rating %>
+
+<div id='star-rating'></div>
+
+
 <h4>カテゴリー</h4>
 <%= f.collection_select :category_id, Category.all, :id, :category_name %>
 
@@ -19,3 +24,12 @@
 	<%= f.button :submit %>
 </div>
 <% end %>
+
+<script>
+$('#star-rating').raty({
+path: '/assets/',
+click: function(score, e) {
+$("#post_rating").val(score)
+}
+});
+</script>
