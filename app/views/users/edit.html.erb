@@ -1,25 +1,27 @@
 
-			<h1>ユーザー設定</h1>
-			<%= form_for(current_user) do |f| %>
+<h1>ユーザー設定</h1>
+<%= form_for(current_user) do |f| %>
 
-			<%= f.attachment_field :profile_image, class: "user_image" %>
-			<%= f.attachment_field :home_image, class: "home_image" %>
-
-
-			<p>名前</p>
-			<%= f.text_field :name, class: "name" %>
-
-			<p>メールアドレス</p>
-			<%= f.text_field :email, class: "email" %>
-
-			<p>電話番号</p>
-			<%= f.text_field :phone_number, class: "phone_number" %>
+<% if @user.persisted? && @user.profile_image_id? %>
+<%= image_tag @user.profile_image_id.to_s %>
+<label><%= f.check_box :remove_profile_image_id %> 画像を削除</label>
+<% end %>
+<%= f.file_field :profile_image_id %>
 
 
+<p>名前</p>
+<%= f.text_field :name, class: "name" %>
 
-			<p><%= f.submit '保存' %></p>
+<p>メールアドレス</p>
+<%= f.text_field :email, class: "email" %>
 
-			<p><%= link_to "戻る", user_path(current_user) %></p>
+<p>電話番号</p>
+<%= f.text_field :phone_number, class: "phone_number" %>
 
-			<% end %>
+
+<p><%= f.submit '保存' %></p>
+
+<p><%= link_to "戻る", user_path(current_user) %></p>
+
+<% end %>
 

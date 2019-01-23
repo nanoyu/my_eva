@@ -1,4 +1,5 @@
 class UploadsController < ApplicationController
+
   def create
     @upload = Upload.new(upload_params)
     @upload.save
@@ -23,4 +24,5 @@ class UploadsController < ApplicationController
   def upload_params
     params.require(:upload).permit(:image)
   end
+
 end

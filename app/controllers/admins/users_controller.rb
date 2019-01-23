@@ -13,7 +13,7 @@ class Admins::UsersController < ApplicationController
   private
 
   def user_params
-  	params.require(:user).permit(:name, :profile_image)
+    params.require(:user).permit(:name, :email, :phone_number, :profile_image_id, :image_cache, :remove_image)
   end
 
 end

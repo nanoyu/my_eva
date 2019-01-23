@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MyEva</title>
   <%= csrf_meta_tags %>
@@ -36,7 +37,8 @@
           </div>
         </li>
         <p><%= link_to "投稿する", new_post_path %></p>
-        <p><%= current_user.name %></p>
+        <p class="text-white"><%= current_user.name %></p>
+
         <% elsif admin_signed_in? %>
         <li class="nav-item active">
           <p class="nav-link"><%= link_to "ユーザー", admins_users_path %></p>
@@ -57,55 +59,30 @@
         <% end %>
       </ul>
     </div>
-    </nav>
+  </nav>
 </header>
 
-<body class="body_type">
+<body>
   <div class="wrapper">
     <div class="container">
-      <%= yield %>
+      <div class="body_type"><%= yield %></div>
     </div>
     <footer>
-      <ul>
+      <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-        <li><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></li>
+        <li class="nav-item active">
+          <p><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></p>
+        </li>
         <% elsif admin_signed_in? %>
         <% else %>
-        <li><%= link_to " 管理者はこちら", new_admin_session_path %></li>
+        <li class="nav-item active">
+          <p><%= link_to " 管理者はこちら", new_admin_session_path %></p>
+        </li>
         <% end %>
-      <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>CopyRight Infratop.inc</p></font></font></span>
-    </ul>
+        <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>CopyRight Infratop.inc</p></font></font></span>
+      </ul>
     </footer>
   </div>
 </body>
 
 </html>
-
-
-
-<!--<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-      <div class="dropdown-menu" aria-labelledby="dropdown01">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </li>
-  </ul>
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</div>
-</nav>-->
