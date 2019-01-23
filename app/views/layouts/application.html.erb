@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MyEva</title>
   <%= csrf_meta_tags %>
@@ -10,53 +11,78 @@
 </head>
 
 <header>
-  <nav>
-   <h2>MyEva</h2>
- </nav>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <h4 class="navbar-brand">MyEva</h4>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "My Page", user_path(current_user)  %></p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link"><%= link_to "投稿一覧", posts_path %></p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link disabled"><%= link_to "Logout", destroy_user_session_path, method: :delete %></p>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" >Action</a>
+            <a class="dropdown-item" >Another action</a>
+            <a class="dropdown-item" >Something else here</a>
+          </div>
+        </li>
+        <p><%= link_to "投稿する", new_post_path %></p>
+        <p class="text-white"><%= current_user.name %></p>
 
- <nav>
-   <ul>
-
-    <% if user_signed_in? %>
-    <li>
-     <%= link_to "My Page", user_path(current_user)  %>
-   </li>
-   <li>
-     <%= link_to "投稿一覧", posts_path %>
-   </li>
-   <li>
-     <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-   </li>
-   <p><%= link_to "投稿する", new_post_path %></p>
-   <p><%= current_user.name %></p>
-
-   <% else %>
-   <li>
-    <%= link_to " about", root_about_path %>
-  </li>
-   <li>
-    <%= link_to " sign up", new_user_registration_path %>
-  </li>
-  <li>
-    <%= link_to " login", new_user_session_path %>
-  </li>
-  <% end %>
-
-</ul>
-</nav>
+        <% elsif admin_signed_in? %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "ユーザー", admins_users_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "投稿", admins_posts_path %></p>
+        </li>
+        <% else %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " about", root_about_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " sign up", new_user_registration_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " login", new_user_session_path %></p>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
 </header>
 
 <body>
-  <%= yield %>
+  <div class="wrapper">
+    <div class="container">
+      <div class="body_type"><%= yield %></div>
+    </div>
+    <footer>
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item active">
+          <p><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></p>
+        </li>
+        <% elsif admin_signed_in? %>
+        <% else %>
+        <li class="nav-item active">
+          <p><%= link_to " 管理者はこちら", new_admin_session_path %></p>
+        </li>
+        <% end %>
+        <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>CopyRight Infratop.inc</p></font></font></span>
+      </ul>
+    </footer>
+  </div>
 </body>
-
-<footer>
-    <p class="text-muted"><% if user_signed_in? %>
-     <h5><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></h5>
-     <% else %>
-     <% end %>
-   </p>
- </div>
-</footer>
 
 </html>

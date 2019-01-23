@@ -1,0 +1,18 @@
+<h1>Myページ</h1>
+<% if @user.profile_image_id? %>
+<%= image_tag @user.profile_image_id.to_s %>
+<% else %>
+<%= image_tag 'no_image.jpg' %>
+<% end %>
+
+<ul>
+	<li><%= @user.name %></li>
+	<li><%= @user.email %></li>
+	<li><%= @user.phone_number %></li>
+</ul>
+
+<h4><%= @user.name %>さんの投稿</h4>
+<% @user.posts.each do |post| %>
+<p><%= link_to post.title, post_path(post.id) %></p>
+<% end %>
+
