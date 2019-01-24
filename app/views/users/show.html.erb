@@ -2,7 +2,7 @@
 
 
 <% if @user.profile_image_id? %>
-<%= image_tag @user.profile_image_id.to_s %>
+<%= image_tag @user.profile_image_id.url %>
 <% else %>
 <%= image_tag 'no_image.jpg' %>
 <% end %>

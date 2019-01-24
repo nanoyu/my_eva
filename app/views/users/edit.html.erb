@@ -2,11 +2,10 @@
 <h1>ユーザー設定</h1>
 <%= form_for(current_user) do |f| %>
 
-<% if @user.persisted? && @user.profile_image_id? %>
-<%= image_tag @user.profile_image_id.to_s %>
-<label><%= f.check_box :remove_profile_image_id %> 画像を削除</label>
-<% end %>
-<%= f.file_field :profile_image_id %>
+
+<%= image_tag @user.profile_image_id.url, id: :img_prev if @user.profile_image_id? %>
+<%= f.file_field :profile_image_id, id: :profile_image %>
+<p><%= f.check_box :remove_profile_image_id %>画像を削除する</p>
 
 
 <p>名前</p>
@@ -25,3 +24,20 @@
 
 <% end %>
 
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#img_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#profile_image").change(function(){
+   readURL(this);
+ });
+});
+</script>

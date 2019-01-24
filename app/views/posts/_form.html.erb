@@ -1,16 +1,15 @@
 <%= simple_form_for(@post) do |f| %>
 <%= f.error_notification %>
 
-<%= f.hidden_field :rating, id: :post_rating %>
-
-<div id='star-rating'></div>
-
 
 <h4>カテゴリー</h4>
 <%= f.collection_select :category_id, Category.all, :id, :category_name %>
 
 <h4>商品名</h4>
 <%= f.text_field :product_name %>
+
+<%= f.hidden_field :rating, id: :post_rating %>
+<div id='star-rating'></div>
 
 <h4>値段</h4>
 <%= f.text_field :price %>

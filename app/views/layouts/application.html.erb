@@ -6,6 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
@@ -25,19 +26,24 @@
         <li class="nav-item">
           <p class="nav-link"><%= link_to "投稿一覧", posts_path %></p>
         </li>
-        <li class="nav-item">
-          <p class="nav-link disabled"><%= link_to "Logout", destroy_user_session_path, method: :delete %></p>
-        </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">カテゴリー</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" >Action</a>
-            <a class="dropdown-item" >Another action</a>
-            <a class="dropdown-item" >Something else here</a>
+            <a class="dropdown-item" href="http://localhost:3000/posts" >すべて</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/1" >ファッション</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/2" >コスメ/美容</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/3" >インテリア</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/4" >エンタメ/ホビー</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/5" >楽器</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/6" >日用品</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/7" >家電</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/8" >オーディオ機器</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/9" >その他</a>
           </div>
         </li>
-        <p><%= link_to "投稿する", new_post_path %></p>
-        <p class="text-white"><%= current_user.name %></p>
+        <li class="nav-item">
+          <p class="nav-link disabled"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
+        </li>
 
         <% elsif admin_signed_in? %>
         <li class="nav-item active">
@@ -65,7 +71,15 @@
 <body>
   <div class="wrapper">
     <div class="container">
-      <div class="body_type"><%= yield %></div>
+      <div class="body_type">
+        <div class="col-12 clearfix">
+        <div class="float-right">
+        <td><%= current_user.name %></td>
+        <td><%= link_to "投稿する", new_post_path %></td>
+        </div>
+      </div>
+        <%= yield %>
+      </div>
     </div>
     <footer>
       <ul class="navbar-nav mr-auto">
