@@ -1,25 +1,43 @@
 
-			<h1>ユーザー設定</h1>
-			<%= form_for(current_user) do |f| %>
-
-			<%= f.attachment_field :profile_image, class: "user_image" %>
-			<%= f.attachment_field :home_image, class: "home_image" %>
+<h1>ユーザー設定</h1>
+<%= form_for(current_user) do |f| %>
 
 
-			<p>名前</p>
-			<%= f.text_field :name, class: "name" %>
-
-			<p>メールアドレス</p>
-			<%= f.text_field :email, class: "email" %>
-
-			<p>電話番号</p>
-			<%= f.text_field :phone_number, class: "phone_number" %>
+<%= image_tag @user.profile_image_id.url, id: :img_prev if @user.profile_image_id? %>
+<%= f.file_field :profile_image_id, id: :profile_image %>
+<p><%= f.check_box :remove_profile_image_id %>画像を削除する</p>
 
 
+<p>名前</p>
+<%= f.text_field :name, class: "name" %>
 
-			<p><%= f.submit '保存' %></p>
+<p>メールアドレス</p>
+<%= f.text_field :email, class: "email" %>
 
-			<p><%= link_to "戻る", user_path(current_user) %></p>
+<p>電話番号</p>
+<%= f.text_field :phone_number, class: "phone_number" %>
 
-			<% end %>
 
+<p><%= f.submit '保存' %></p>
+
+<p><%= link_to "戻る", user_path(current_user) %></p>
+
+<% end %>
+
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#img_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#profile_image").change(function(){
+   readURL(this);
+ });
+});
+</script>

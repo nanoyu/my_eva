@@ -1,69 +1,102 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MyEva</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <header>
-  <nav>
-   <h2>MyEva</h2>
- </nav>
- <nav>
-   <ul>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <h4 class="navbar-brand">MyEva</h4>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "My Page", user_path(current_user)  %></p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link"><%= link_to "投稿一覧", posts_path %></p>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">カテゴリー</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="http://localhost:3000/posts" >すべて</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/1" >ファッション</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/2" >コスメ/美容</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/3" >インテリア</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/4" >エンタメ/ホビー</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/5" >楽器</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/6" >日用品</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/7" >家電</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/8" >オーディオ機器</a>
+            <a class="dropdown-item" href="http://localhost:3000/categories/9" >その他</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link disabled"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
+        </li>
 
-     <% if user_signed_in? %>
-     <li><%= link_to "My Page", user_path(current_user)  %></li>
-     <li><%= link_to "投稿一覧", posts_path %></li>
-     <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-     <p><%= link_to "投稿する", new_post_path %></p>
-     <p><%= current_user.name %></p>
-
-     <% elsif admin_signed_in?  %>
-     <p>管理者</p>
-     <li><%= link_to "ユーザー", admins_users_path %></li>
-     <li><%= link_to "投稿", admins_posts_path %></li>
-
-     <% else %>
-     <li><%= link_to " about", root_about_path %></li>
-    <li><%= link_to " sign up", new_user_registration_path %></li>
-    <li><%= link_to " login", new_user_session_path %></li>
-
-    <% end %>
-
-  </ul>
-</nav>
+        <% elsif admin_signed_in? %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "ユーザー", admins_users_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to "投稿", admins_posts_path %></p>
+        </li>
+        <% else %>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " about", root_about_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " sign up", new_user_registration_path %></p>
+        </li>
+        <li class="nav-item active">
+          <p class="nav-link"><%= link_to " login", new_user_session_path %></p>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
 </header>
 
-
 <body>
-  <%= form_tag posts_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :title => nil %>
-  </p>
-  <% end %>
-  <%= yield %>
+  <div class="wrapper">
+    <div class="container">
+      <div class="body_type">
+        <div class="col-12 clearfix">
+        <div class="float-right">
+        <td><%= current_user.name %></td>
+        <td><%= link_to "投稿する", new_post_path %></td>
+        </div>
+      </div>
+        <%= yield %>
+      </div>
+    </div>
+    <footer>
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item active">
+          <p><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></p>
+        </li>
+        <% elsif admin_signed_in? %>
+        <% else %>
+        <li class="nav-item active">
+          <p><%= link_to " 管理者はこちら", new_admin_session_path %></p>
+        </li>
+        <% end %>
+        <span class="text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><p>CopyRight Infratop.inc</p></font></font></span>
+      </ul>
+    </footer>
+  </div>
 </body>
-
-
-<footer>
-  <p class="text-muted">
-    <ul>
-      <% if user_signed_in? %>
-      <li><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?" %></li>
-      <% else %>
-      <li>
-        <%= link_to " 管理者はこちら", new_admin_session_path %>
-      </li>
-      <% end %>
-    </ul>
-  </p>
-</div>
-</footer>
 
 </html>

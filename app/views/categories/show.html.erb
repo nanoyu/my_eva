@@ -1,6 +1,29 @@
 
-			<h1><%= @category.category_name %></h1>
-				<% @posts.each do |post| %>
-									<%= link_to post.title, post_path(post.id) %>
-				<% end %>
-			<%= paginate @posts, class: "paginate" %>
+<%= form_tag posts_path, :method => 'get' do %>
+<p>
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag "Search", :title => nil %>
+</p>
+<% end %>
+
+<h1><%= @category.category_name %></h1>
+
+<table class='table table-hover table-inverse'>
+	<thead>
+		<tr>
+			<th>title</th>
+			<th>name</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @posts.each do |post| %>
+		<tr>
+			<td><%= link_to post.title, post_path(post.id) %></td>
+			<td></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

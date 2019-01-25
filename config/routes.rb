@@ -28,6 +28,9 @@ Rails.application.routes.draw do
 get 'root/top'
 get 'root/about'
 
+get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
+get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
+
 root :to => 'root#top'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
