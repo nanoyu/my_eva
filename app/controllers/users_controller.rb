@@ -20,7 +20,12 @@ class UsersController < ApplicationController
 
   def user_posts
     @user = User.find(params[:id])
-    @posts = @user.posts.all
+    @posts = @user.posts.paginate(page: params[:page], per_page: 16)
+  end
+
+  def user_likes
+    @user = User.find(params[:id])
+    @posts = @user.posts.paginate(page: params[:page], per_page: 16)
   end
 
 
