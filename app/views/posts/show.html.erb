@@ -11,12 +11,15 @@
 <p id="notice"><%= notice %></p>
 
 <h2><%= @post.title %></h2>
+<div id='star-rating'></div>
+
 <td><%= link_to "編集", edit_post_path(@post.id) %></td>
 <td><%= link_to "削除", post_path(@post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
 <hr>
 <td><%= @post.likes.count %> 件のいいね</td>
 <td><%= @post.comments.count %> 件のコメント</td>
 <hr>
+
 
 <p><%=raw @post.body %></p>
 <ul class='pl-4'>
@@ -63,3 +66,11 @@
 <% @post.liked_users.each do |user| %>
 <li><%= user.name %></li>
 <% end %>
+
+<script>
+$('#star-rating').raty({
+path: '/assets/',
+number: 5,
+score: <%= @post.rating %>
+});
+</script>

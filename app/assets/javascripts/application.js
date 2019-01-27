@@ -19,5 +19,9 @@
 //= require summernote-init
 //= require activestorage
 //= require turbolinks
-//= require_tree .
 
+
+
+//= require jquery.raty
+
+//= require_tree .
