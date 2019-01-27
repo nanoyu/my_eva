@@ -24,4 +24,6 @@
 
 //= require jquery.raty
 
+//= require bootstrap-tagsinput.min
+
 //= require_tree .
