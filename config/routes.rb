@@ -29,6 +29,7 @@ get 'root/top'
 get 'root/about'
 
 get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
+get 'users/:id/user_likes' => 'users#user_likes', as: :user_likes
 get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
 
 root :to => 'root#top'

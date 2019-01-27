@@ -1,8 +1,6 @@
-<h1>Myページ</h1>
-
 
 <% if @user.profile_image_id? %>
-<%= image_tag @user.profile_image_id.url %>
+<%= image_tag @user.profile_image_id.url(:thumb) %>
 <% else %>
 <%= image_tag 'no_image.jpg' %>
 <% end %>
@@ -23,8 +21,9 @@
 <p><%= link_to "すべての投稿を表示", user_posts_path(current_user) %></p>
 
 
-<h4>いいねしている投稿</h4>
-<% @user.liked_posts.each do |post| %>
+<h4>いいね</h4>
+<% @user.liked_posts.first(5).each do |post| %>
 <p><%= link_to post.title, post_path(post.id) %><p>
 	<% end %>
 
+<p><%= link_to "すべてのいいねを表示", user_likes_path(current_user) %></p>

@@ -1,10 +1,12 @@
 
+<div class="float-right">
 <%= form_tag posts_path, :method => 'get' do %>
 <p>
 	<%= text_field_tag :search, params[:search] %>
 	<%= submit_tag "Search", :title => nil %>
 </p>
 <% end %>
+</div>
 
 <h1><%= @category.category_name %></h1>
 

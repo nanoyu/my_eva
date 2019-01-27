@@ -1,4 +1,4 @@
-<h4>My投稿</h4>
+<h4>いいね</h4>
 
 <table class='table table-hover table-inverse'>
 	<thead>
@@ -8,7 +8,7 @@
 	</thead>
 
 	<tbody>
-		<% @posts.each do |post| %>
+		<% @user.liked_posts.each do |post| %>
 		<tr>
 			<td><%= link_to post.title, post_path(post.id) %>
 				(<%= post.liked_users.count %>)
