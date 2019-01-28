@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  authenticated :user do
+    root :to => "posts#index", :as => "posts"
+  end
+    root 'root#top'
+
   get 'categories/show'
   get 'uploads/create'
   get 'uploads/destroy'
@@ -12,9 +18,14 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     registrations: "users/registrations"
   }
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
-  resources :messages, :only => [:create]
-  resources :rooms, :only => [:create, :show, :index]
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+     get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show, :index]
   resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
    resources :comments, only: [:create]
    resources :likes, only: [:create, :destroy]
@@ -34,6 +45,6 @@ get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
 get 'users/:id/user_likes' => 'users#user_likes', as: :user_likes
 get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
 
-root :to => 'root#top'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
