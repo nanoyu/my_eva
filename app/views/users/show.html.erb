@@ -7,14 +7,13 @@
 
 <ul>
 	<li><%= @user.name %></li>
-	<li><%= @user.email %></li>
-	<li><%= @user.phone_number %></li>
+	<li><%= @user.introduce %></li>
 </ul>
 
 <%= render 'follow_form' %>
 <%= render 'stats' %>
 
-<p><%= link_to "ユーザー設定", edit_user_path(current_user) %></p>
+<p><%= link_to "プロフィール設定", profile_edit_path(current_user) %></p>
 
 
 
@@ -67,6 +66,13 @@
 		<p><%= link_to "すべてのいいねを表示", user_likes_path(current_user) %></p>
 	</div>
 </div>
+
+<% @user.rooms.each do |r| %>
+<% r.entries.each do |e| %>
+<%= e.user.name %>
+<% end %>
+<% end %>
+
 
 <% if @user.id == current_user.id %>
 <% else %>

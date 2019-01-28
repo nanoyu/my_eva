@@ -40,11 +40,11 @@ Rails.application.routes.draw do
 
 get 'root/top'
 get 'root/about'
-
+get 'users/:id/profile_edit' => 'users#profile_edit', as: :profile_edit
 get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
 get 'users/:id/user_likes' => 'users#user_likes', as: :user_likes
 get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
-
+get '/tag_search/:tag_name' => 'posts#tag_search', as: :tag_search
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -8,12 +8,17 @@
 </p>
 <% end %>
 
+<%= form_tag posts_path, :method => 'get' do %>
+<p>
+	<%= text_field_tag :label_list, params[:label_list] %>
+	<%= submit_tag "Search", :title => nil %>
+</p>
+<% end %>
+
+
 </div>
 
-<!--<h2>カテゴリ</h2>
-<% @categories.each do |category| %>
-<p><%= link_to category.category_name, category_path(category.id) %></p>
-<% end %>-->
+
 
 <h1>投稿一覧</h1>
 
@@ -35,7 +40,7 @@
 			</td>
 		</tr>
 		<% end %>
-
+		
 	</tbody>
 </table>
 
