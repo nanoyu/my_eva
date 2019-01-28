@@ -1,0 +1,5 @@
+
+  <% @users.each do |u| %>
+  <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
+  <hr>
+  <% end %>

@@ -38,6 +38,9 @@
 <td><%= @post.price %>円</td>
 <hr>
 
+<td><%= render 'posts/tag_list', tag_list: @post.label_list %></td>
+<%= render 'posts/related_posts', posts: @post.find_related_labels %>
+
 <h2>コメント一覧</h2>
 <% @comments.first(8).each do |c| %>
 <div>

@@ -6,6 +6,9 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :liked_users, through: :likes, source: :user
 
+  acts_as_taggable_on :labels
+  acts_as_taggable
+
 	def self.search(search) #self.でクラスメソッドとしている
     if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
       Post.where(['title LIKE ?', "%#{search}%"])
