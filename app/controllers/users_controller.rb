@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!, :only => [:show]
+  before_action :authenticate_user!
 
   def index
     @users = User.all
@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
   	@posts = @user.posts.all
-
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
     if @user.id == current_user.id
