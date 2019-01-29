@@ -1,6 +1,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
-   include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -13,21 +13,14 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
- # 画像の上限を640x480にする
-version :thumb do
-    process resize_to_fill: [280, 280]
+  version :thumb do
+    process :resize_to_fill => [200, 200]
   end
 
-  version :small_thumb, from_version: :thumb do
-    process resize_to_fill: [20, 20]
-end
   # 保存形式をJPGにする
   process :convert => 'jpg'
 
 
-  version :thumb100 do
-    process :resize_to_limit => [100, 100]
-  end
 
   # jpg,jpeg,gif,pngしか受け付けない
   def extension_white_list
@@ -35,9 +28,9 @@ end
   end
 
  # 拡張子が同じでないとGIFをJPGとかにコンバートできないので、ファイル名を変更
-  def filename
-    super.chomp(File.extname(super)) + '.jpg' if original_filename.present?
-  end
+ def filename
+  super.chomp(File.extname(super)) + '.jpg' if original_filename.present?
+end
 
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -74,7 +67,7 @@ end
   protected
 
   def secure_token
-     var = :"@#{mounted_as}_secure_token"
-     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
-  end
+   var = :"@#{mounted_as}_secure_token"
+   model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+ end
 end

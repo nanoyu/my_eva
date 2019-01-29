@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     registrations: "users/registrations"
   }
-  resources :users, only: [:show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
+  resources :messages, :only => [:create]
+  resources :rooms, :only => [:create, :show, :index]
   resources :posts, only: [:index, :new, :show, :edit, :create, :update, :destroy] do
    resources :comments, only: [:create]
    resources :likes, only: [:create, :destroy]
@@ -29,6 +31,7 @@ get 'root/top'
 get 'root/about'
 
 get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
+get 'users/:id/user_likes' => 'users#user_likes', as: :user_likes
 get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
 
 root :to => 'root#top'
