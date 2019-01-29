@@ -1,5 +1,26 @@
 
-  <% @users.each do |u| %>
-  <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
-  <hr>
-  <% end %>
+<table class='table table-hover table-inverse'>
+	<thead>
+		<tr>
+			<th>タイトル</th>
+			<th>ユーザー</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @users.each do |user| %>
+		<tr>
+			<td>
+				<% if user.profile_image_id? %>
+				<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+				<% else %>
+				<%= image_tag 'no_image.jpg' %>
+				<% end %>
+			</td>
+			<td><%= link_to user.name, user_path(user.id) %></td>
+			<td>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

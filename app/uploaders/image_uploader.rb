@@ -16,6 +16,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :thumb do
     process :resize_to_fill => [200, 200]
   end
+  version :thumb100 do
+    process :resize_to_fill => [100, 100]
+  end
+  version :thumb50 do
+    process :resize_to_fill => [50, 50]
+  end
 
   # 保存形式をJPGにする
   process :convert => 'jpg'
