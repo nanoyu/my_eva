@@ -17,7 +17,7 @@
 	<% if post.user.profile_image_id? %>
 			<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
 			<% else %>
-			<%= image_tag 'no_image.jpg' %>
+			<%= image_tag '/images/no_image.jpg' %>
 			<% end %>
 			<%= post.user.name %>
 <%= link_to post.title, admins_post_path(post.id) %>
