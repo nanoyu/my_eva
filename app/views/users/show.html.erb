@@ -1,15 +1,15 @@
 
-<% if @user.profile_image_id? %>
-<%= image_tag @user.profile_image_id.url(:thumb), class: "rounded-circle" %>
-<% else %>
-<%= image_tag 'no_image.jpg' %>
-<% end %>
-
-<ul>
-	<li><%= @user.name %></li>
-	<li><%= @user.introduce %></li>
-</ul>
-
+<div class="pf">
+	<% if @user.profile_image_id? %>
+	<%= image_tag @user.profile_image_id.url(:thumb), class: "rounded-circle" %>
+	<% else %>
+	<%= image_tag '/images/no_image.jpg' %>
+	<% end %>
+</div>
+<div class="pf2">
+	<h3><%= @user.name %></h3>
+	<p><%= @user.introduce %></p>
+</div>
 <%= render 'follow_form' %>
 <%= render 'stats' %>
 
@@ -44,12 +44,14 @@
 			<table class='table table-hover table-inverse'>
 				<thead>
 					<tr>
-						<th>タイトル</th>
-						<th>ユーザー</th>
+						<th>User</th>
+						<th>Title</th>
+						<th>Product</th>
+						<th>Date</th>
 					</tr>
 				</thead>
 				<tbody>
-					<% @user.posts.first(8).each do |post| %>
+					<% @user.posts.last(8).each do |post| %>
 					<tr>
 						<td>
 							<% if @user.profile_image_id? %>
@@ -57,9 +59,12 @@
 							<% else %>
 							<%= image_tag 'no_image.jpg' %>
 							<% end %>
+							<br>
+							<%= link_to post.user.name, user_path(@user.id) %>
 						</td>
-						<td><%= link_to post.user.name, user_path(@user.id) %></td>
 						<td><%= link_to post.title, post_path(post.id) %></td>
+						<td><%= link_to post.product_name %></td>
+						<td><%= post.created_at.strftime('%Y年%m月%d日') %></td>
 					</tr>
 					<% end %>
 				</tbody>
@@ -72,16 +77,27 @@
 			<table class='table table-hover table-inverse'>
 				<thead>
 					<tr>
-						<th>ユーザー</th>
-						<th>タイトル</th>
+						<th>User</th>
+						<th>Title</th>
+						<th>Product</th>
+						<th>Date</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% @user.liked_posts.first(8).each do |post| %>
 					<tr>
-						<td><%= link_to post.user.name, user_path(@user.id) %></td>
+						<td>
+							<% if @user.profile_image_id? %>
+							<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+							<% else %>
+							<%= image_tag 'no_image.jpg' %>
+							<% end %>
+							<br>
+							<%= link_to post.user.name, user_path(@user.id) %>
+						</td>
 						<td><%= link_to post.title, post_path(post.id) %></td>
-						<td></td>
+						<td><%= link_to post.product_name %></td>
+						<td><%= post.created_at.strftime('%Y年%m月%d日') %></td>
 					</tr>
 					<% end %>
 				</tbody>
@@ -90,42 +106,30 @@
 		</div>
 
 		<div id="tab03">
-			<h3>CHAT</h3>
-			<table class='table table-hover table-inverse'>
-				<thead>
-					<tr>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<% @user.rooms.each do |r| %>
-					<% r.entries.each do |e| %>
-					<tr>
-						<td>
-							<%= e.user.name %>
-						</td>
-						<% end %>
-						<td><%= link_to "チャットへ", room_path(r.id) %></td>
-					</tr>
+			<h3>CHAT</h3><hr>
+			<% @user.rooms.each do |r| %>
+				<% r.entries.each do |e| %>
+					<% if e.user.name == current_user.name %>
+						<% else %>
+						<%= e.user.name %>
 					<% end %>
-				</tbody>
-			</table>
+				<% end %>
+					<td><%= link_to "チャットへ", room_path(r.id) %></td><hr>
+			<% end %>
 		</div>
 	</div>
 
-<script>
-	jQuery(function($){
-		$('.tabcontent > div').hide();
+	<script>
+		jQuery(function($){
+			$('.tabcontent > div').hide();
 
-		$('.tabnav a').click(function () {
-			$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+			$('.tabnav a').click(function () {
+				$('.tabcontent > div').hide().filter(this.hash).fadeIn();
 
-			$('.tabnav a').removeClass('active');
-			$(this).addClass('active');
+				$('.tabnav a').removeClass('active');
+				$(this).addClass('active');
 
-			return false;
-		}).filter(':eq(0)').click();
-	});
-</script>
+				return false;
+			}).filter(':eq(0)').click();
+		});
+	</script>

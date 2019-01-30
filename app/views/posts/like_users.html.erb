@@ -1,0 +1,19 @@
+
+<table class='table table-hover table-inverse'>
+
+	<tbody>
+		<% @post.liked_users.each do |user| %>
+		<tr>
+			<td>
+			<p><% if user.profile_image_id? %>
+				<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+				<% else %>
+				<%= image_tag 'no_image.jpg', class: "rounded-circle" %>
+				<% end %>
+			    <%= link_to user.name, user_path(user.id) %></p>
+			</td>
+			<td><%= user.introduce %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

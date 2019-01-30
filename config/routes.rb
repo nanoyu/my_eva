@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   authenticated :user do
-    root :to => "posts#index", :as => "posts"
+    root "posts#index"
   end
     root 'root#top'
 
@@ -45,6 +45,7 @@ get 'users/:id/user_posts' => 'users#user_posts', as: :user_posts
 get 'users/:id/user_likes' => 'users#user_likes', as: :user_likes
 get 'posts/:id/post_comments' => 'posts#post_comments', as: :all_comment
 get '/tag_search/:tag_name' => 'posts#tag_search', as: :tag_search
+get 'posts/:id/like_users' => 'posts#like_users', as: :like_user
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

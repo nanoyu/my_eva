@@ -1,4 +1,15 @@
 
+
+<div class="float-right">
+	<%= form_tag users_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :name => nil %>
+	</p>
+	<% end %>
+
+</div>
+
 <table class='table table-hover table-inverse'>
 	<thead>
 		<tr>
@@ -14,7 +25,7 @@
 				<% if user.profile_image_id? %>
 				<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
 				<% else %>
-				<%= image_tag 'no_image.jpg' %>
+				<%= image_tag 'no_image.jpg', class: "rounded-circle" %>
 				<% end %>
 			</td>
 			<td><%= link_to user.name, user_path(user.id) %></td>
@@ -24,3 +35,5 @@
 		<% end %>
 	</tbody>
 </table>
+
+<%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

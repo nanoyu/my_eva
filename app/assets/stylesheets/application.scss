@@ -43,21 +43,42 @@ footer{
     bottom: 0; /*下に固定*/
 }
 
+ul{
+  list-style: none;
+}
+
+.pf{
+ display: inline-block;
+ width: 200px;
+}
+.pf2{
+ display: inline-block;
+ width: 200px;
+ text-align: right;
+}
 .body_type{
   padding-top: 100px;
   padding-bottom: 100px;
 }
 
+.fbody{
+  background-color: #e8f4f4;
+}
+
+.CenterFrame{
+  text-align:center;
+}
+
 .image1 {
-background-image: url(image1.jpg);
+background-image: url(/images/image1.jpg);
 background-size:  cover;
 }
 .image2 {
-background-image: url(image2.jpg);
+background-image: url(/images/image2.jpg);
 background-size:  cover;
 }
 .image3 {
-background-image: url(image3.jpg);
+background-image: url(/images/image3.jpg);
 background-size:  cover;
 }
 

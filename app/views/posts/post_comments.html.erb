@@ -4,15 +4,21 @@
 <%= f.text_field :content %>
 <%= f.hidden_field :user_id, :value => current_user.id %>
 <%= f.hidden_field :post_id, :value => @post.id %>
-<br>
-<%= f.submit 'コメントする' %>
+<%= f.submit '送信', class: "btn btn-info" %>
 <% end %>
+
+<hr>
 
 <% @comments.each do |c| %>
 <div>
- <%= c.user.name %>
- <%= c.content %>
- <hr>
+	<% if c.user.profile_image_id? %>
+	<%= image_tag c.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+	<% else %>
+	<%= image_tag '/images/no_image.jpg', class: "rounded-circle" %>
+	<% end %>
+	<%= c.user.name %>
+	<%= c.content %>
+	<hr>
 </div>
 <% end %>
 

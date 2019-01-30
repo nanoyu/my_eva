@@ -1,12 +1,12 @@
 
 <% if user_signed_in? %>
 <div class="float-right">
-<%= form_tag posts_path, :method => 'get' do %>
-<p>
-	<%= text_field_tag :search, params[:search] %>
-	<%= submit_tag "Search", :title => nil %>
-</p>
-<% end %>
+	<%= form_tag posts_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :title => nil %>
+	</p>
+	<% end %>
 
 </div>
 
@@ -17,27 +17,27 @@
 
 <h1>投稿一覧</h1>
 
-<table class='table table-hover table-inverse'>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-			<th>ユーザー</th>
-		</tr>
-	</thead>
+<% @posts.each do |post| %>
+<div>
+	<% if post.user.profile_image_id? %>
+			<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+			<% else %>
+			<%= image_tag '/images/no_image.jpg' %>
+			<% end %>
+			<%= post.user.name %>
+<%= link_to post.title, post_path(post.id) %>
+	(<%= post.liked_users.count %>)
 
-	<tbody>
-		<% @posts.each do |post| %>
-		<tr>
-			<td><%= link_to post.title, post_path(post.id) %>
-				(<%= post.liked_users.count %>)
-			</td>
-			<td>
-			</td>
-		</tr>
-		<% end %>
+<div class="float-right">
+<% if post.user == current_user %>
+<td><%= link_to "編集", edit_post_path(post.id) %></td>
+<td><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
+<% end %>
+</div>
+</div>
+<hr>
+<% end %>
 
-	</tbody>
-</table>
 
 <%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
 

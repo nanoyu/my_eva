@@ -27,6 +27,10 @@ class PostsController < ApplicationController
     @user = @comment.user
   end
 
+  def like_users
+    @post = Post.find(params[:id])
+  end
+
   def edit
   	@post = Post.find(params[:id])
   end
@@ -34,7 +38,7 @@ class PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     post.user_id = current_user.id
-    post.save!
+    post.save
     redirect_to post_path(post.id)
   end
 

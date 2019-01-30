@@ -1,18 +1,96 @@
-<h1>Myページ</h1>
-<% if @user.profile_image_id? %>
-<%= image_tag @user.profile_image_id.to_s %>
-<% else %>
-<%= image_tag 'no_image.jpg' %>
-<% end %>
 
-<ul>
-	<li><%= @user.name %></li>
+
+	<% if @user.profile_image_id? %>
+	<%= image_tag @user.profile_image_id.url(:thumb), class: "rounded-circle" %>
+	<% else %>
+	<%= image_tag '/images/no_image.jpg' %>
+	<% end %>
+	<h3><%= @user.name %></h3>
 	<li><%= @user.email %></li>
 	<li><%= @user.phone_number %></li>
-</ul>
+	<p><%= @user.introduce %></p>
 
-<h4><%= @user.name %>さんの投稿</h4>
-<% @user.posts.each do |post| %>
-<p><%= link_to post.title, post_path(post.id) %></p>
-<% end %>
+	<ul class="tabnav">
+		<li><a href="#tab01">レビュー</a></li>
+		<li><a href="#tab02">いいね</a></li>
+	</ul>
 
+	<div class="tabcontent">
+		<div id="tab01">
+			<h3>POST</h3>
+			<table class='table table-hover table-inverse'>
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Title</th>
+						<th>Product</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.posts.each do |post| %>
+					<tr>
+						<td>
+							<% if @user.profile_image_id? %>
+							<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+							<% else %>
+							<%= image_tag 'no_image.jpg' %>
+							<% end %>
+							<br>
+							<%= link_to post.user.name, user_path(@user.id) %>
+						</td>
+						<td><%= link_to post.title, post_path(post.id) %></td>
+						<td><%= link_to post.product_name %></td>
+						<td><%= post.created_at.strftime('%Y年%m月%d日') %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="tab02">
+			<h3>LIKE</h3>
+			<table class='table table-hover table-inverse'>
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Title</th>
+						<th>Product</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.liked_posts.each do |post| %>
+					<tr>
+						<td>
+							<% if @user.profile_image_id? %>
+							<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+							<% else %>
+							<%= image_tag 'no_image.jpg' %>
+							<% end %>
+							<br>
+							<%= link_to post.user.name, user_path(@user.id) %>
+						</td>
+						<td><%= link_to post.title, post_path(post.id) %></td>
+						<td><%= link_to post.product_name %></td>
+						<td><%= post.created_at.strftime('%Y年%m月%d日') %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+
+	<script>
+		jQuery(function($){
+			$('.tabcontent > div').hide();
+
+			$('.tabnav a').click(function () {
+				$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+
+				$('.tabnav a').removeClass('active');
+				$(this).addClass('active');
+
+				return false;
+			}).filter(':eq(0)').click();
+		});
+	</script>
