@@ -13,66 +13,9 @@
 <%= render 'follow_form' %>
 <%= render 'stats' %>
 
+<% if @user == current_user %>
 <p><%= link_to "プロフィール設定", profile_edit_path(current_user) %></p>
-
-
-
-<ul class="tabnav">
-	<li><a href="#tab01">レビュー</a></li>
-	<li><a href="#tab02">いいね</a></li>
-</ul>
-
-<div class="tabcontent">
-	<div id="tab01">
-		<h3>POST</h3>
-		<table class='table table-hover table-inverse'>
-			<thead>
-				<tr>
-					<th>タイトル</th>
-					<th>ユーザー</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @user.posts.first(8).each do |post| %>
-				<tr>
-					<td><%= link_to post.title, post_path(post.id) %></td>
-					<td></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<%= link_to "すべての投稿を表示", user_posts_path(current_user) %>
-	</div>
-
-	<div id="tab02">
-		<h3>LIKE</h3>
-		<table class='table table-hover table-inverse'>
-			<thead>
-				<tr>
-					<th>タイトル</th>
-					<th>ユーザー</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<% @user.liked_posts.first(8).each do |post| %>
-				<tr>
-					<td><%= link_to post.title, post_path(post.id) %></td>
-					<td></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<p><%= link_to "すべてのいいねを表示", user_likes_path(current_user) %></p>
-	</div>
-</div>
-
-<% @user.rooms.each do |r| %>
-<% r.entries.each do |e| %>
-<%= e.user.name %>
 <% end %>
-<% end %>
-
 
 <% if @user.id == current_user.id %>
 <% else %>
@@ -88,17 +31,101 @@
 	<% end %>
 	<% end %>
 
+
+	<ul class="tabnav">
+		<li><a href="#tab01">レビュー</a></li>
+		<li><a href="#tab02">いいね</a></li>
+		<li><a href="#tab03">チャット</a></li>
+	</ul>
+
+	<div class="tabcontent">
+		<div id="tab01">
+			<h3>POST</h3>
+			<table class='table table-hover table-inverse'>
+				<thead>
+					<tr>
+						<th>タイトル</th>
+						<th>ユーザー</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.posts.first(8).each do |post| %>
+					<tr>
+						<td>
+							<% if @user.profile_image_id? %>
+							<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+							<% else %>
+							<%= image_tag 'no_image.jpg' %>
+							<% end %>
+						</td>
+						<td><%= link_to post.user.name, user_path(@user.id) %></td>
+						<td><%= link_to post.title, post_path(post.id) %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<%= link_to "すべての投稿を表示", user_posts_path(current_user) %>
+		</div>
+
+		<div id="tab02">
+			<h3>LIKE</h3>
+			<table class='table table-hover table-inverse'>
+				<thead>
+					<tr>
+						<th>ユーザー</th>
+						<th>タイトル</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @user.liked_posts.first(8).each do |post| %>
+					<tr>
+						<td><%= link_to post.user.name, user_path(@user.id) %></td>
+						<td><%= link_to post.title, post_path(post.id) %></td>
+						<td></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<p><%= link_to "すべてのいいねを表示", user_likes_path(current_user) %></p>
+		</div>
+
+		<div id="tab03">
+			<h3>CHAT</h3>
+			<table class='table table-hover table-inverse'>
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @user.rooms.each do |r| %>
+					<% r.entries.each do |e| %>
+					<tr>
+						<td>
+							<%= e.user.name %>
+						</td>
+						<% end %>
+						<td><%= link_to "チャットへ", room_path(r.id) %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
 <script>
 	jQuery(function($){
-    $('.tabcontent > div').hide();
- 
-    $('.tabnav a').click(function () {
-        $('.tabcontent > div').hide().filter(this.hash).fadeIn();
- 
-        $('.tabnav a').removeClass('active');
-        $(this).addClass('active');
- 
-        return false;
-    }).filter(':eq(0)').click();
-});
+		$('.tabcontent > div').hide();
+
+		$('.tabnav a').click(function () {
+			$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+
+			$('.tabnav a').removeClass('active');
+			$(this).addClass('active');
+
+			return false;
+		}).filter(':eq(0)').click();
+	});
 </script>
