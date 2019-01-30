@@ -1,16 +1,18 @@
 <h4>いいね</h4>
 
 <table class='table table-hover table-inverse'>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-		</tr>
-	</thead>
 
 	<tbody>
 		<% @user.liked_posts.each do |post| %>
 		<tr>
-			<td><%= link_to posts.user.name, user_path(@user.id) %></td>
+			<td>
+			<% if @user.profile_image_id? %>
+			<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+			<% else %>
+			<%= image_tag '/images/no_image.jpg' %>
+			<% end %>
+			</td>
+			<td><%= link_to post.user.name, user_path(@user.id) %></td>
 			<td><%= link_to post.title, post_path(post.id) %>
 				(<%= post.liked_users.count %>)
 			</td>

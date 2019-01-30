@@ -1,11 +1,19 @@
-<h1>User info</h1>
-<table class='table table-hover table-inverse'>
 
+<div class="float-right">
+	<%= form_tag admins_users_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :name => nil %>
+	</p>
+	<% end %>
+
+</div>
+
+<table class='table table-hover table-inverse'>
 	<thead>
 		<tr>
-			<th>image</th>
-			<th>name</th>
-			<th colspan="3"></th>
+			<th>タイトル</th>
+			<th>ユーザー</th>
 		</tr>
 	</thead>
 
@@ -14,15 +22,17 @@
 		<tr>
 			<td>
 				<% if user.profile_image_id? %>
-				<%= image_tag user.profile_image_id.to_s %>
+				<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
 				<% else %>
-				<%= image_tag 'no_image.jpg' %>
+				<%= image_tag '/images/no_image.jpg', class: "rounded-circle" %>
 				<% end %>
 			</td>
-			<td><%= user.name %></td>
-			<td><%= link_to 'Show', admins_user_path(user.id) %></td>
+			<td><%= link_to user.name, admins_user_path(user.id) %></td>
+			<td>
+			</td>
 		</tr>
 		<% end %>
 	</tbody>
-
 </table>
+
+<%= will_paginate @users, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>

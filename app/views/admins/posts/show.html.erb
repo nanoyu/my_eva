@@ -1,2 +1,54 @@
-<h1>Admins::Posts#show</h1>
-<p>Find me in app/views/admins/posts/show.html.erb</p>
+
+
+<div class="float-right">
+	<%= form_tag admins_posts_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :title => nil %>
+	</p>
+	<% end %>
+</div>
+
+
+<p id="notice"><%= notice %></p>
+
+<h2><%= @post.title %></h2>
+<%= @post.created_at.strftime('%Y年%m月%d日') %>
+<p>カテゴリー:<%= @post.category.category_name %></p>
+<div id='star-rating'></div>
+
+
+<div class="float-right">
+	<td><%= link_to "削除", post_path(@post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
+</div>
+
+<br><hr>
+<td><%= link_to @post.likes.count %> 件のいいね</td>
+<td><%= link_to @post.comments.count %> 件のコメント</td>
+<hr>
+
+
+<p><%=raw @post.body %></p>
+<ul class='pl-4'>
+	<% @post.body.scan(/(<img(?:.+?)>)/).flatten.each do | image | %>
+	<% end %>
+</ul>
+<hr>
+<td>商品名</td>
+<td><%= @post.product_name %></td>
+<hr>
+<td>価格</td>
+<td><%= @post.price %>円</td>
+<hr>
+
+<td><%= render 'posts/tag_list', tag_list: @post.label_list %></td>
+
+
+<script>
+	$('#star-rating').raty({
+		readOnly: true,
+		path: '/assets/',
+		number: 5,
+		score: <%= @post.rating %>
+	});
+</script>

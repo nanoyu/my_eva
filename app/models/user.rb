@@ -34,6 +34,14 @@ def following?(other_user)
     self.likes.exists?(post_id: post.id)
   end
 
+  def self.search(search) #self.でクラスメソッドとしている
+    if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
+      User.where(['name LIKE ?', "%#{search}%"])
+    else
+      User.all #全て表示。
+    end
+  end
+
   mount_uploader :profile_image_id, ImageUploader
   #attachment :profile_image
   #attachment :home_image

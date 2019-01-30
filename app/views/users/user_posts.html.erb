@@ -1,20 +1,15 @@
-<h4>My投稿</h4>
+<h4>すべての投稿</h4>
 
 <table class='table table-hover table-inverse'>
-	<thead>
-		<tr>
-			<th>タイトル</th>
-		</tr>
-	</thead>
 
 	<tbody>
 		<% @posts.each do |post| %>
 		<tr>
 			<td>
-			<% if user.profile_image_id? %>
-			<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+			<% if @user.profile_image_id? %>
+			<%= image_tag @user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
 			<% else %>
-			<%= image_tag 'no_image.jpg' %>
+			<%= image_tag '/images/no_image.jpg' %>
 			<% end %>
 			</td>
 			<td><%= link_to post.user.name, user_path(@user.id) %></td>

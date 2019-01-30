@@ -1,26 +1,36 @@
-<div class='col-xs-9'>
-	<h1>投稿</h1>
 
-	<table class='table table-hover table-inverse'>
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Opinion</th>
-				<th colspan="3"></th>
-			</tr>
-		</thead>
 
-		<tbody>
-			<% @posts.each do |post| %>
-			<% if @user.profile_image_id? %>
-			<%= image_tag @user.profile_image_id.to_s %>
+<div class="float-right">
+	<%= form_tag admins_posts_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search", :title => nil %>
+	</p>
+	<% end %>
+
+</div>
+
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+<div>
+	<% if post.user.profile_image_id? %>
+			<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
 			<% else %>
 			<%= image_tag 'no_image.jpg' %>
 			<% end %>
-			<tr>
-				<td><%= link_to post.title, admins_post_path(post.id) %></td>
-				<td><% strip_tags(post.body).truncate(20) %></td>
-			</tr>
-			<% end %>
-		</tbody>
-	</table>
+			<%= post.user.name %>
+<%= link_to post.title, admins_post_path(post.id) %>
+	(<%= post.liked_users.count %>)
+
+<div class="float-right">
+<% if post.user == current_user %>
+<td><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
+<% end %>
+</div>
+</div>
+<hr>
+<% end %>
+
+
+<%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
