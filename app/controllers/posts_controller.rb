@@ -50,6 +50,17 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def tag_search
+    if params[:tag_name]
+      @posts = Post.tagged_with(params[:tag_name]).paginate(page: params[:page], per_page: 16)
+
+    else
+      @posts = Post.paginate(page: params[:page], per_page: 16)
+
+    end
+    # @posts = Post.where(label_list: params[:tag_name])
+  end
+
   private
 
   def post_params

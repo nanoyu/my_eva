@@ -1,0 +1,26 @@
+
+<h3>フォロー</h3>
+<table class='table table-hover table-inverse'>
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+<% @user.followings.each do |user| %>
+	<tr>
+		<td>
+			<% if user.profile_image_id? %>
+			<%= image_tag user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+			<% else %>
+			<%= image_tag 'no_image.jpg' %>
+			<% end %>
+		</td>
+		<td><%= link_to user.name, user_path(user.id) %></td>
+		<td><%= @user.introduce %></td>
+	</tr>
+</table>
+<% end %>

@@ -1,0 +1,40 @@
+
+<h1>プロフィール設定</h1>
+<%= form_for(current_user) do |f| %>
+
+
+<%= image_tag @user.profile_image_id.url, id: :img_prev if @user.profile_image_id? %>
+<%= f.file_field :profile_image_id, id: :profile_image %>
+<p><%= f.check_box :remove_profile_image_id %>画像を削除する</p>
+
+<p>名前</p>
+<%= f.text_field :name, class: "name" %>
+
+<p>自己紹介</p>
+<%= f.text_field :introduce, class: "introduce" %>
+
+<p><%= f.submit '保存' %></p>
+
+
+<p><%= link_to "ユーザー設定", edit_user_path(current_user) %></p>
+<p><%= link_to "戻る", user_path(current_user) %></p>
+
+<% end %>
+
+
+<script type="text/javascript">
+$(function() {
+ function readURL(input) {
+   if (input.files && input.files[0]) {
+     var reader = new FileReader();
+     reader.onload = function (e) {
+       $('#img_prev').attr('src', e.target.result);
+     }
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+ $("#profile_image").change(function(){
+   readURL(this);
+ });
+});
+</script>
