@@ -38,30 +38,34 @@ class PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     post.user_id = current_user.id
-    post.save
-    redirect_to post_path(post.id)
-  end
-
-  def update
-  	post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post.id)
-  end
-
-  def destroy
-  	post = Post.find(params[:id])
-    post.destroy
+    if post.save
+     flash[:notice] = "Post was successfully created"
+     redirect_to post_path(post.id)
+   else
+    flash[:error] = post.errors.full_messages
     redirect_to posts_path
+    end
   end
 
-  def tag_search
-    if params[:tag_name]
-      @posts = Post.tagged_with(params[:tag_name]).paginate(page: params[:page], per_page: 16)
+def update
+ post = Post.find(params[:id])
+ post.update(post_params)
+ redirect_to post_path(post.id)
+end
 
-    else
-      @posts = Post.paginate(page: params[:page], per_page: 16)
+def destroy
+ post = Post.find(params[:id])
+ post.destroy
+ redirect_to posts_path
+end
 
-    end
+def tag_search
+  if params[:tag_name]
+    @posts = Post.tagged_with(params[:tag_name]).paginate(page: params[:page], per_page: 16)
+  else
+    @posts = Post.paginate(page: params[:page], per_page: 16)
+
+  end
     # @posts = Post.where(label_list: params[:tag_name])
   end
 

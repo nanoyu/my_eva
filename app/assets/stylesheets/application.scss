@@ -62,13 +62,19 @@ ul{
 }
 
 .fbody{
-  background-color: #e8f4f4;
+  background-color: #F5FAFC;
 }
 
 .CenterFrame{
   text-align:center;
 }
 
+.headimage {
+width: 247px;
+height: 64px;
+background-image: url(/images/headimage.jpg);
+background-size:  cover;
+}
 .image1 {
 background-image: url(/images/image1.jpg);
 background-size:  cover;
@@ -148,4 +154,11 @@ h2{
   left: 0;
   margin: auto;
   text-align: center;
+}
+
+.notice{
+  color: #3cb371;
+}
+.flash{
+  color: #3cb371;
 }

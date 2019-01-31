@@ -9,6 +9,8 @@ class Post < ApplicationRecord
   acts_as_taggable_on :labels
   acts_as_taggable
 
+  validates :title, length: { minimum: 1 }
+
 	def self.search(search) #self.でクラスメソッドとしている
     if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
       Post.where(['title LIKE ?', "%#{search}%"])

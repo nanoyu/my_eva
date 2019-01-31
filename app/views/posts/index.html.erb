@@ -1,4 +1,12 @@
 
+<div>
+	<% unless flash[:error].blank? %>
+	<%= flash[:error].each do |error| %>
+	<% error %>
+	<% end %>
+	<% end %>
+</div>
+
 <% if user_signed_in? %>
 <div class="float-right">
 	<%= form_tag posts_path, :method => 'get' do %>
@@ -20,20 +28,20 @@
 <% @posts.each do |post| %>
 <div>
 	<% if post.user.profile_image_id? %>
-			<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
-			<% else %>
-			<%= image_tag '/images/no_image.jpg' %>
-			<% end %>
-			<%= post.user.name %>
-<%= link_to post.title, post_path(post.id) %>
+	<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+	<% else %>
+	<%= image_tag '/images/no_image.jpg' %>
+	<% end %>
+	<%= post.user.name %>
+	<%= link_to post.title, post_path(post.id) %>
 	(<%= post.liked_users.count %>)
 
-<div class="float-right">
-<% if post.user == current_user %>
-<td><%= link_to "編集", edit_post_path(post.id) %></td>
-<td><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
-<% end %>
-</div>
+	<div class="float-right">
+		<% if post.user == current_user %>
+		<td><%= link_to "編集", edit_post_path(post.id) %></td>
+		<td><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
+		<% end %>
+	</div>
 </div>
 <hr>
 <% end %>
