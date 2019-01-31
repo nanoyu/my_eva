@@ -22,57 +22,62 @@ class UsersController < ApplicationController
         end
       end
     end
-      if @isRoom
-      else
-        @room = Room.new
-        @entry = Entry.new
-      end
+    if @isRoom
+    else
+      @room = Room.new
+      @entry = Entry.new
     end
-
-      def edit
-        @user = User.find(params[:id])
-      end
-
-      def profile_edit
-        @user = User.find(params[:id])
-      end
-
-      def update
-       user = User.find(params[:id])
-       user.update(user_params)
-       redirect_to user_path(current_user.id)
-     end
-
-     def destroy
-     end
-
-     def user_posts
-      @user = User.find(params[:id])
-      @posts = @user.posts.paginate(page: params[:page], per_page: 16)
-    end
-
-    def user_likes
-      @user = User.find(params[:id])
-      @posts = @user.posts.paginate(page: params[:page], per_page: 16)
-    end
-
-    def following
-      @user  = User.find(params[:id])
-      @users = @user.followings
-      render 'show_follow'
   end
 
-  def followers
-    @user  = User.find(params[:id])
-    @users = @user.followers
-    render 'show_follower'
+  def edit
+    @user = User.find(params[:id])
   end
 
-
-    private
-
-    def user_params
-      params.require(:user).permit(:name, :introduce, :email, :phone_number, :profile_image_id, :iprofile_image_id_cache, :remove_profile_image_id)
-    end
-
+  def profile_edit
+    @user = User.find(params[:id])
   end
+
+  def update
+   user = User.find(params[:id])
+   if user.update(user_params)
+     flash[:notice] = "User was successfully updated"
+     redirect_to user_path(current_user.id)
+   else
+    flash[:error] = user.errors.full_messages
+    redirect_to edit_user_path(user.id)
+  end
+end
+
+def destroy
+end
+
+def user_posts
+  @user = User.find(params[:id])
+  @posts = @user.posts.paginate(page: params[:page], per_page: 16)
+end
+
+def user_likes
+  @user = User.find(params[:id])
+  @posts = @user.posts.paginate(page: params[:page], per_page: 16)
+end
+
+def following
+  @user  = User.find(params[:id])
+  @users = @user.followings
+  render 'show_follow'
+end
+
+def followers
+  @user  = User.find(params[:id])
+  @users = @user.followers
+  render 'show_follower'
+end
+
+
+private
+
+def user_params
+  params.require(:user).permit(:name, :introduce, :email, :phone_number, :profile_image_id, :iprofile_image_id_cache, :remove_profile_image_id)
+end
+
+end

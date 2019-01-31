@@ -1,5 +1,4 @@
 
-
 <div class="float-right">
 	<%= form_tag posts_path, :method => 'get' do %>
 	<p>
@@ -14,7 +13,7 @@
 
 <h2><%= @post.title %></h2>
 <%= @post.created_at.strftime('%Y年%m月%d日') %>
-<p>カテゴリー:<%= @post.category.category_name %></p>
+
 <div id='star-rating'></div>
 
 

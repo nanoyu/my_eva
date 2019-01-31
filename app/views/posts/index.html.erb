@@ -15,31 +15,34 @@
 <p><%= link_to category.category_name, category_path(category.id) %></p>
 <% end %>-->
 
-<h1>投稿一覧</h1>
+<h1>Post List</h1>
 
 <% @posts.each do |post| %>
-<div>
+<div class="post">
+	<p><%= post.created_at.strftime('%Y年%m月%d日') %></p>
 	<% if post.user.profile_image_id? %>
-			<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
-			<% else %>
-			<%= image_tag '/images/no_image.jpg' %>
-			<% end %>
-			<%= post.user.name %>
-<%= link_to post.title, post_path(post.id) %>
-	(<%= post.liked_users.count %>)
-
-<div class="float-right">
-<% if post.user == current_user %>
-<td><%= link_to "編集", edit_post_path(post.id) %></td>
-<td><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' } %></td>
-<% end %>
+	<%= image_tag post.user.profile_image_id.url(:thumb100), class: "rounded-circle" %>
+	<% else %>
+	<%= image_tag '/images/no_image.jpg' %>
+	<% end %>
+	<%= link_to post.title, post_path(post.id) %>
+	<%= raw post.body.truncate(10) %>
+	<!--<%= post.liked_users.count %>)-->
+	<% if post.user == current_user %>
+	<p class="p_right"><%= link_to "編集", edit_post_path(post.id), class: "btn btn-success" %></p>
+	<p class="p_right"><%= link_to "削除", post_path(post.id), method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-danger" %></p>
+	<% end %>
+	<p><%= post.user.name %></p>
+	<div class="like_comm">
+	<span class="p_size"><%= post.likes.count %> 件のいいね</span>
+	<span class="p_size"><%= post.comments.count %> 件のコメント</span>
 </div>
 </div>
 <hr>
 <% end %>
 
 
-<%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+<div class="page"><%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %></div>
 
 <% else %>
 <div id="container">

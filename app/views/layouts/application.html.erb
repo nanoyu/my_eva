@@ -14,7 +14,7 @@
 
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <h1 class="text-white">MyEva</h1>
+    <div class="headimage"></div>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <% if user_signed_in? %>
@@ -31,7 +31,7 @@
           <h5 class="nav-link"><%= link_to "User List", users_path, class: "text-secondary " %></h5>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>Category</strong></a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <a class="dropdown-item" href="/posts" >すべて</a>
             <a class="dropdown-item" href="/categories/1" >ファッション</a>
@@ -83,7 +83,6 @@
 
 <body class='fbody'>
   <div class="wrapper">
-    <div class="container">
       <div class="body_type">
         <div class="col-12 clearfix">
           <div class="float-right">
@@ -97,7 +96,6 @@
         <%= yield %>
         <div id="page_top"><a href="#"></a></div>
       </div>
-    </div>
     <footer>
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
