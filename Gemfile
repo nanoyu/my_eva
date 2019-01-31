@@ -82,3 +82,5 @@ gem 'bootstrap-will_paginate'
 
 gem 'acts-as-taggable-on'
 
+gem 'rails-i18n'
+

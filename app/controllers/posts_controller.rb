@@ -43,7 +43,7 @@ class PostsController < ApplicationController
      redirect_to post_path(post.id)
    else
     flash[:error] = post.errors.full_messages
-    redirect_to posts_path
+    redirect_to new_post_path
     end
   end
 
