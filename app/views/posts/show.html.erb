@@ -1,4 +1,4 @@
-
+<div class="container">
 <div class="float-right">
 	<%= form_tag posts_path, :method => 'get' do %>
 	<p>
@@ -15,6 +15,17 @@
 <%= @post.created_at.strftime('%Y年%m月%d日') %>
 
 <div id='star-rating'></div>
+<p class="like">
+<% if current_user.already_liked?(@post) %>
+<%= button_to '♡いいね', post_like_path(@post), method: :delete, class: "btn btn-secondary btn-sm" %>
+<% else %>
+<%= form_for [@post, @like] do |f| %>
+<%= f.hidden_field :user_id, :value => current_user.id %>
+<%= f.hidden_field :post_id, :value => @post.id %>
+<p><%= f.submit '♥いいね', class: "btn btn-danger btn-sm" %></p>
+<% end %>
+<% end %>
+<p>
 
 
 <div class="float-right">
@@ -66,15 +77,12 @@
 
 <p><%= link_to "すべてのコメントを表示", all_comment_path(@post.id) %></p>
 
-<p>いいねしたユーザー</p>
-<% @post.liked_users.each do |user| %>
-<li><%= user.name %></li>
-<% end %>
+</div>
 
 <script>
 	$('#star-rating').raty({
 		readOnly: true,
-		path: '/assets/',
+		path: '/images/',
 		number: 5,
 		score: <%= @post.rating %>
 	});

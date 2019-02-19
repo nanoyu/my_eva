@@ -28,8 +28,7 @@
 				<% end %>
 			</td>
 			<td><%= link_to user.name, admins_user_path(user.id) %></td>
-			<td>
-			</td>
+			<td><%= link_to "削除", admins_user_path(user.id), method: :delete, data: { confirm: '削除しますか?' }, class: "btn btn-danger" %></td>
 		</tr>
 		<% end %>
 	</tbody>

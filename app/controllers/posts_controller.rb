@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def index
   	#ViewのFormで取得したパラメータをモデルに渡す
-    @posts = Post.paginate(page: params[:page], per_page: 16).search(params[:search])
+    @posts = Post.paginate(page: params[:page], per_page: 5).search(params[:search])
     @categories = Category.all
   end
 

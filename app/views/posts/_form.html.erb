@@ -21,7 +21,7 @@
 </div>
 
 <div class="field">
-    <%= f.label :label_list, "タグ" %><br>
+    <%= f.label "タグ" %><br>
     <%= text_field_tag 'post[label_list]', @post.label_list.join(','), "data-role" => "tagsinput" %>
 </div>
 
@@ -33,7 +33,7 @@
 <script>
 $('#star-rating').raty({
 half: true,
-path: '/assets/',
+path: '/images/',
 click: function(score, e) {
 $("#post_rating").val(score)
 }

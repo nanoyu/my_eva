@@ -1,5 +1,4 @@
-
-<% if user_signed_in? %>
+<div class="container">
 <div class="float-right">
 	<%= form_tag posts_path, :method => 'get' do %>
 	<p>
@@ -36,21 +35,11 @@
 	<div class="like_comm">
 	<span class="p_size"><%= post.likes.count %> 件のいいね</span>
 	<span class="p_size"><%= post.comments.count %> 件のコメント</span>
-</div>
+        </div>
 </div>
 <hr>
 <% end %>
 
 
 <div class="page"><%= will_paginate @posts, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %></div>
-
-<% else %>
-<div id="container">
-	<div id="theTarget">
-		<div class="image1"></div>
-		<div class="image2"></div>
-		<div class="image3"></div>
-	</div>
-	<h3><%= link_to "MyEva アカウントを登録する", new_user_registration_path, class: "btn btn-info col-xs-10 col-xs-offset-1" %></h3>
 </div>
-<% end %>

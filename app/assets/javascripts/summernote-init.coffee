@@ -1,9 +1,4 @@
-$(document).on 'turbolinks:load', ->
-  $('[data-provider="summernote"]').each ->
-    $(this).summernote
-      height: 300
-
-      sendFile = (file, toSummernote) ->
+sendFile = (file, toSummernote) ->
   data = new FormData
   data.append 'upload[image]', file
   $.ajax
@@ -42,4 +37,5 @@ $(document).on 'turbolinks:load', ->
           if !!upload_id
             deleteFile upload_id
           target.remove()
+
 
