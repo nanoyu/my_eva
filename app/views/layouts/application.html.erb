@@ -99,9 +99,6 @@
     <footer>
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-        <li class="nav-item active">
-          <p><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "削除しますか?", class: "text-secondary " %></p>
-        </li>
         <% elsif admin_signed_in? %>
         <% else %>
         <li class="nav-item active">
