@@ -50,7 +50,10 @@
 	<ul class="tabnav">
 		<li><a href="#tab01">レビュー</a></li>
 		<li><a href="#tab02">いいね</a></li>
-		<li><a href="#tab03">チャット</a></li>
+		<% if @user == current_user %>
+			<li><a href="#tab03">チャット</a></li>
+			<% else %>
+		<% end %>
 	</ul>
 
 	<div class="tabcontent">
@@ -120,18 +123,21 @@
 			<p><%= link_to "すべてのいいねを表示", user_likes_path(current_user) %></p>
 		</div>
 
-		<div id="tab03">
-			<h3>CHAT</h3><hr>
-			<% @user.rooms.each do |r| %>
-			<% r.entries.each do |e| %>
-			<% if e.user.name == current_user.name %>
+		<% if @user == current_user %>
+			<div id="tab03">
+				<h3>CHAT</h3><hr>
+				<% @user.rooms.each do |r| %>
+				<% r.entries.each do |e| %>
+				<% if e.user.name == current_user.name %>
+				<% else %>
+				<%= e.user.name %>
+				<% end %>
+				<% end %>
+				<td><%= link_to "チャットへ", room_path(r.id) %></td><hr>
+				<% end %>
+			</div>
 			<% else %>
-			<%= e.user.name %>
-			<% end %>
-			<% end %>
-			<td><%= link_to "チャットへ", room_path(r.id) %></td><hr>
-			<% end %>
-		</div>
+		<% end %>
 	</div>
 
 	<script>

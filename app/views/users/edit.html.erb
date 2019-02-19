@@ -13,5 +13,10 @@
 
 <p><%= link_to "戻る", profile_edit_path(current_user) %></p>
 
+<div>
+<p>退会する方はこちら</p>
+<p><%= link_to "退会", user_registration_path, method: :delete, "data-confirm" => "ユーザー情報、すべての投稿が削除されます。退会しますか?", class: "btn btn-danger" %></p>
+</div>
+
 <% end %>
 
